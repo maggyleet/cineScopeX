@@ -39,6 +39,7 @@ function handleSearch() {
     fetchMovies(query);
 }
 
+// Fetch logic
 async function fetchMovies(title) {
     moviesContainer.innerHTML = "<p>Loading...</p>";
     try {
@@ -51,11 +52,13 @@ async function fetchMovies(title) {
             moviesContainer.innerHTML = `<p>${data.Error}</p>`;
         }
     } catch (error) {
+        // Error handling
         moviesContainer.innerHTML = "<p>Something went wrong. Please try again.</p>";
         console.error("Fetch error:", error);
     }
 }
 
+// DOM rendering functions
 function renderMovies(movies) {
     moviesContainer.innerHTML = "";
     movies.forEach((movie) => {
@@ -64,10 +67,10 @@ function renderMovies(movies) {
 
         const poster = movie.Poster !== "N/A"
             ? movie.Poster
-            : "https://via.placeholder.com/220x320?text=No+Image";
+            : "https://cdn.pixabay.com/photo/2017/07/13/23/11/cinema-2502213_960_720.jpg";
 
         card.innerHTML = `
-      <img src="${poster}" alt="${movie.Title} Poster" />
+            <img src="${poster}" onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2017/07/13/23/11/cinema-2502213_960_720.jpg';" alt="${movie.Title} Poster" />
       <div class="card-info">
         <h3>${movie.Title}</h3>
         <p>${movie.Year}</p>
@@ -90,15 +93,21 @@ async function fetchMovieDetails(imdbID) {
             alert("Could not load movie details.");
         }
     } catch (err) {
+        // Error handling
         console.error("Error fetching details:", err);
     }
 }
 
+// DOM rendering functions
 function showModal(movie) {
     modalPoster.src = movie.Poster !== "N/A"
         ? movie.Poster
-        : "https://via.placeholder.com/220x320?text=No+Image";
+        : "https://cdn.pixabay.com/photo/2017/07/13/23/11/cinema-2502213_960_720.jpg";
 
+    modalPoster.onerror = () => {
+        modalPoster.src =
+            "https://cdn.pixabay.com/photo/2017/07/13/23/11/cinema-2502213_960_720.jpg";
+    };
     modalPoster.alt = `${movie.Title} Poster`;
     modalTitle.textContent = movie.Title;
     modalYear.textContent = movie.Year;
