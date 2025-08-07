@@ -5,7 +5,6 @@
 ---
 
 ## Live Demo
-*(Optional: Add GitHub Pages link here if deployed)*  
 [View Live](https://maggyleet.github.io/cineScopeX)
 
 ---
